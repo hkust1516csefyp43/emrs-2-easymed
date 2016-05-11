@@ -1,7 +1,7 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "EMRS-2-Easymed",
+  "version": "0.0.1",
+  "description": "So that One-2-One CAMBODIA can transfer existing data to our new solution",
   "main": "main.js",
   "scripts": {
     "start": "electron main.js"
@@ -12,17 +12,22 @@
   },
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial"
+    "EMRS",
+    "Easymed",
+    "migration",
+    "PostgreSQL",
+    "MySQL",
+    "HKUST",
+    "SIGHT",
+    "One-2-One CAMBODIA"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "HKUST 2015-2016 CSE FYP Group 43",
+  "license": "WTFPL",
   "bugs": {
     "url": "https://github.com/electron/electron-quick-start/issues"
   },
   "homepage": "https://github.com/electron/electron-quick-start#readme",
   "devDependencies": {
-    "electron-prebuilt": "^0.37.8"
+    "electron-prebuilt": "~1.0.1"
   }
 }

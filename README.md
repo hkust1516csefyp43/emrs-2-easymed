@@ -1,32 +1,35 @@
-# electron-quick-start
+# EMRS-2-Easymed
+This project is based on the [electron-quick-start]() repository.
 
-**Clone and run for a quick way to see an Electron in action.**
-
-This is a minimal Electron application based on the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start) within the Electron documentation.
-
-**Use this app along with the [Electron API Demos](http://electron.atom.io/#get-started) app for API code examples to help you get started.**
-
-A basic Electron application needs just these files:
-
-- `package.json` - Points to the app's main file and lists its details and dependencies.
-- `main.js` - Starts the app and creates a browser window to render HTML. This is the app's **main process**.
-- `index.html` - A web page to render. This is the app's **renderer process**.
-
-You can learn more about each of these components within the [Quick Start Guide](http://electron.atom.io/docs/latest/tutorial/quick-start).
-
-## To Use
+## To Compile and run it yourself
 
 To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
 
 ```bash
 # Clone this repository
-git clone https://github.com/electron/electron-quick-start
+git clone https://github.com/hkust1516csefyp43/emrs-2-easymed.git
 # Go into the repository
-cd electron-quick-start
+cd emrs-2-easymed
 # Install dependencies and run the app
-npm install && npm start
+sudo npm install && npm start
 ```
 
 Learn more about Electron and its API in the [documentation](http://electron.atom.io/docs/latest).
 
-#### License [CC0 (Public Domain)](LICENSE.md)
+#### License
+```
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                    Version 2, December 2004
+
+ Copyright (C) 2015-2016 HKUST 2015-2016 CSE FYP Group 43 <hkust1516csefyp43@gmail.com>
+
+ Everyone is permitted to copy and distribute verbatim or modified
+ copies of this license document, and changing it is allowed as long
+ as the name is changed.
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+  0. You just DO WHAT THE FUCK YOU WANT TO.
+
+```
