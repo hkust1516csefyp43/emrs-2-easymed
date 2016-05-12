@@ -28,6 +28,10 @@
   },
   "homepage": "https://github.com/electron/electron-quick-start#readme",
   "devDependencies": {
-    "electron-prebuilt": "~1.0.1"
+    "electron-prebuilt": "~1.0.1",
+    "mysql": "~2.10.2",
+    "sql-bricks-postgres": "~0.4.2",
+    "lodash": "~4.12.0",
+    "moment": "~2.13.0"
   }
 }

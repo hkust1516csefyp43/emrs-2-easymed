@@ -1,19 +1,97 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-  </body>
+<html lang="en">
+<head>
 
-  <script>
-    // You can also require other files to run in this process
-    require('./renderer.js')
-  </script>
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>EMRS-2-Easymed</title>
+  <meta name="description" content="A simple Electron-based tool to convert data from the EMRS to Easymed-compatible SQL INSERT queries">
+  <meta name="author" content="HKUST 2015-2016 CSE FYP Group 43">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<div class="container">
+
+  <div class="row" style="margin-top: 5%">
+    <div class="twelve column">
+      <h5>Connect to EMRS:</h5>
+      <form>
+        <div class="row">
+          <div class="six columns">
+            <label for="hostInput">Host (IP Address)</label>
+            <input class="u-full-width" type="url" placeholder="e.g. 192.168.0.123" id="hostInput">
+          </div>
+          <div class="six columns">
+            <label for="portInput">Port</label>
+            <input class="u-full-width" type="number" placeholder="3306" id="portInput">
+          </div>
+        </div>
+        <div class="row">
+          <div class="six columns">
+            <label for="usernameInput">Username</label>
+            <input class="u-full-width" type="text" id="usernameInput">
+          </div>
+          <div class="six columns">
+            <label for="passwordInput">Password</label>
+            <input class="u-full-width" type="password" id="passwordInput">
+          </div>
+        </div>
+        <div class="row">
+          <div class="six columns">
+            <label for="databaseInput">Database</label>
+            <input class="u-full-width" type="text" placeholder="SIGHT" id="databaseInput">
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="six columns">
+          <div style="text-align: center;"><a class="button" href="#">Test connection</a></div>
+        </div>
+        <div class="six columns">
+          <div style="text-align: center;"><a class="button button-primary" href="#">Convert</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 5%">
+    <h5>Output:</h5>
+    <textarea class="u-full-width" placeholder="e.g. INSERT INTO v2.patients ..." id="exampleMessage"></textarea>
+  </div>
+  <div class="row">
+    <div class="six columns">
+      <div style="text-align: center;"><a class="button button-primary" href="#">Copy all</a></div>
+    </div>
+    <div class="six columns">
+      <div style="text-align: center;"><a class="button button-primary" href="#">Save as</a></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
 </html>
