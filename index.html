@@ -30,6 +30,16 @@
 <body>
 
 <script src="emrsMySQL.js"></script>
+<script>
+  //put functions here
+  function testConnection() {
+
+  }
+
+  function startConversion() {
+
+  }
+</script>
 
 
 <!-- Primary Page Layout
@@ -67,7 +77,7 @@
           <div style="text-align: center;"><a class="button" onclick="testConnection()">Test connection</a></div>
         </div>
         <div class="six columns">
-          <div style="text-align: center;"><a class="button button-primary" onclick="#">Convert</a></div>
+          <div style="text-align: center;"><a class="button button-primary" onclick="startConversion()">Convert</a></div>
         </div>
       </div>
     </div>
@@ -87,27 +97,6 @@
   </div>
 
 </div>
-
-<script>
-  function testConnection() {
-    var host = document.getElementById('hostInput').value;
-    var username = document.getElementById('usernameInput').value;
-    var password = document.getElementById('passwordInput').value;
-    var database = document.getElementById('databaseInput').value;
-
-    testMySQLConnection(host, username, password, database, function (err, successful) {
-      if (err) {
-        showModalDialog(err);
-      } else {
-
-      }
-    });
-  },
-  function errorDialog(err) {
-    const {dialog} = require('electron').remote;
-    dialog.showErrorBox('Error', JSON.stringify(err));
-  }
-</script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->

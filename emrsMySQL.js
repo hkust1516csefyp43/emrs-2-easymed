@@ -5,6 +5,7 @@ var mysql = require('mysql');
 var lodash = require('lodash');
 var rs = require('randomstring');
 var moment = require('moment');
+var async = require('async');
 
 const id_length = 16;
 
@@ -49,7 +50,7 @@ function testMySQLConnection(host, username, password, database, callback) {
  * @param database
  * @param callback(err, result)
  */
-function getEverythingFromEmrs(host, user, password, database, callback) {
+function getEverythingFromEmrs(host, username, password, database, callback) {
   var connection = mysql.createConnection({
     host     : host,
     user     : username,
@@ -62,118 +63,164 @@ function getEverythingFromEmrs(host, user, password, database, callback) {
       callback(err, null);
     } else {
       console.log('connected as id ' + connection.threadId);
-      var emrsFemalerecordArray = null;
-      var emrsInventoryArray = null;
-      var emrsKeywordArray = null;
-      var emrsMedicineArray = null;
-      var emrsPatientArray = null;
-      var emrsPatienthistoryArray = null;
-      var emrsPatientvisitArray = null;
-      var emrsPrescriptionArray = null;
-      var emrsSlumArray = null;
-      var emrsTriagerecord = null;
-      var emrsUserArray = null;
-      connection.query('SELECT * FROM femalerecord', function (err, rows, fields) {
+      async.waterfall([
+        function(WFcallback) {
+          async.parallel({
+              asyncFemalerecord: function(cb1){
+                connection.query('SELECT * FROM femalerecord', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb1(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb1(null, rows);
+                  }
+                });
+              },
+              asyncInventory: function(cb2){
+                connection.query('SELECT * FROM inventory', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb2(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb2(null, rows);
+                  }
+                });
+              },
+              asyncKeyword: function(cb3){
+                connection.query('SELECT * FROM keyword', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb3(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb3(null, rows);
+                  }
+                });
+              },
+              asyncMedicine: function(cb4){
+                connection.query('SELECT * FROM medicine', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb4(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb4(null, rows);
+                  }
+                });
+              },
+              asyncPatient: function(cb5){
+                connection.query('SELECT * FROM patient', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb5(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb5(null, rows);
+                  }
+                });
+              },
+              asyncPatienthistory: function(cb6){
+                connection.query('SELECT * FROM patienthistory', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb6(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb6(null, rows);
+                  }
+                });
+              },
+              asyncPatientvisit: function(cb7){
+                connection.query('SELECT * FROM patientvisit', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb7(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb7(null, rows);
+                  }
+                });
+              },
+              asyncPrescription: function(cb8){
+                connection.query('SELECT * FROM prescription', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb8(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb8(null, rows);
+                  }
+                });
+              },
+              asyncSlum: function(cb9){
+                connection.query('SELECT * FROM slum', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb9(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb9(null, rows);
+                  }
+                });
+              },
+              asyncTriagerecord: function(cb10){
+                connection.query('SELECT * FROM triagerecord', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb10(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb10(null, rows);
+                  }
+                });
+              },
+              asyncUser: function(cb11){
+                connection.query('SELECT * FROM user', function (err, rows, fields) {
+                  if (err) {
+                    console.error(err);
+                    cb11(err, null);
+                  } else {
+                    // console.log(JSON.stringify(rows));
+                    cb11(null, rows);
+                  }
+                });
+              }
+            },
+            function(err, results) {
+              if (err) {
+                console.error(err);
+                WFcallback(err, null);
+              } else {
+                // console.log(JSON.stringify(results));
+                WFcallback(null, results);
+              }
+            });
+        },
+        function(results, WFcallback2) {
+          var output = {};
+          output['femalerecord'] = results.asyncFemalerecord;
+          output['inventory'] = results.asyncInventory;
+          output['keyword'] = results.asyncKeyword;
+          output['medicine'] = results.asyncMedicine;
+          output['patient'] = results.asyncPatient;
+          output['patienthistory'] = results.asyncPatienthistory;
+          output['patientvisit'] = results.asyncPatientvisit;
+          output['prescription'] = results.asyncPrescription;
+          output['slum'] = results.asyncSlum;
+          output['triagerecord'] = results.asyncTriagerecord;
+          output['user'] = results.asyncUser;
+          WFcallback2(null, output);
+        }
+      ], function (err, result) {
         if (err) {
           console.error(err);
           callback(err, null);
         } else {
-          emrsFemalerecordArray = rows;
+          callback(null, result);
         }
       });
-      connection.query('SELECT * FROM inventory', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsInventoryArray = rows;
-        }
-      });
-      connection.query('SELECT * FROM keyword', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsKeywordArray = rows;
-        }
-      });
-      connection.query('SELECT * FROM medicine', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsMedicineArray = rows;
-        }
-      });
-      connection.query('SELECT * FROM patient', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsPatientArray = rows;
-        }
-      });
-      connection.query('SELECT * FROM patienthistory', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsPatienthistoryArray = rows;
-        }
-      });
-      connection.query('SELECT * FROM patientvisit', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsPatientvisitArray = rows;
-        }
-      });
-      connection.query('SELECT * FROM prescription', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsPrescriptionArray = rows;
-        }
-      });
-      connection.query('SELECT * FROM slum', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsSlumArray = rows;
-        }
-      });
-      connection.query('SELECT * FROM triagerecord', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsTriagerecord = rows;
-        }
-      });
-      connection.query('SELECT * FROM user', function (err, rows, fields) {
-        if (err) {
-          console.error(err);
-          callback(err, null);
-        } else {
-          emrsUserArray = rows;
-        }
-      });
-      var output = {};
-      output[femalerecord] = emrsFemalerecordArray;
-      output[inventory] = emrsInventoryArray;
-      output[keyword] = emrsKeywordArray;
-      output[medicine] = emrsMedicineArray;
-      output[patient] = emrsPatientArray;
-      output[patienthistory] = emrsPatienthistoryArray;
-      output[patientvisit] = emrsPatientvisitArray;
-      output[prescription] = emrsPrescriptionArray;
-      output[slum] = emrsSlumArray;
-      output[triagerecord] = emrsTriagerecord;
-      output[user] = emrsUserArray;
-      callback(null, output);
     }
   });
 }
@@ -231,7 +278,7 @@ function transformToTriage(emrsTriage, easymedVisit, easymedUser) {
 
 function transformToConsultation(emrsFemaleRecord) {
   var consultation_id = rs.generate(id_length);
-  
+
   var output = {};
   return output;
 }

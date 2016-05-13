@@ -33,6 +33,7 @@
     "sql-bricks-postgres": "~0.4.2",
     "lodash": "~4.12.0",
     "moment": "~2.13.0",
-    "randomstring": "~1.1.4"
+    "randomstring": "~1.1.4",
+    "async": "~2.0.0-rc.4"
   }
 }
