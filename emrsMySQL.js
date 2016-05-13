@@ -28,17 +28,154 @@ function testMySQLConnection(host, username, password, database, callback) {
   callback("failed");
 }
 
-function getMySQLConnection(host, user, password, database, callback) {
+// function getMySQLConnection(host, user, password, database, callback) {
+//   var connection = mysql.createConnection({
+//     host     : host,
+//     user     : user,
+//     password : password,
+//     database : database
+//   });
+//
+//   connection.connect();
+//
+//   callback(null, connection);
+// }
+
+/**
+ * gives you an object of every data that you will need
+ * @param host
+ * @param user
+ * @param password
+ * @param database
+ * @param callback(err, result)
+ */
+function getEverythingFromEmrs(host, user, password, database, callback) {
   var connection = mysql.createConnection({
     host     : host,
-    user     : user,
+    user     : username,
     password : password,
     database : database
   });
-
-  connection.connect();
-
-  callback(null, connection);
+  connection.connect(function(err) {
+    if (err) {
+      console.error('error connecting: ' + err.stack);
+      callback(err, null);
+    } else {
+      console.log('connected as id ' + connection.threadId);
+      var emrsFemalerecordArray = null;
+      var emrsInventoryArray = null;
+      var emrsKeywordArray = null;
+      var emrsMedicineArray = null;
+      var emrsPatientArray = null;
+      var emrsPatienthistoryArray = null;
+      var emrsPatientvisitArray = null;
+      var emrsPrescriptionArray = null;
+      var emrsSlumArray = null;
+      var emrsTriagerecord = null;
+      var emrsUserArray = null;
+      connection.query('SELECT * FROM femalerecord', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsFemalerecordArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM inventory', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsInventoryArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM keyword', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsKeywordArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM medicine', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsMedicineArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM patient', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsPatientArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM patienthistory', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsPatienthistoryArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM patientvisit', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsPatientvisitArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM prescription', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsPrescriptionArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM slum', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsSlumArray = rows;
+        }
+      });
+      connection.query('SELECT * FROM triagerecord', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsTriagerecord = rows;
+        }
+      });
+      connection.query('SELECT * FROM user', function (err, rows, fields) {
+        if (err) {
+          console.error(err);
+          callback(err, null);
+        } else {
+          emrsUserArray = rows;
+        }
+      });
+      var output = {};
+      output[femalerecord] = emrsFemalerecordArray;
+      output[inventory] = emrsInventoryArray;
+      output[keyword] = emrsKeywordArray;
+      output[medicine] = emrsMedicineArray;
+      output[patient] = emrsPatientArray;
+      output[patienthistory] = emrsPatienthistoryArray;
+      output[patientvisit] = emrsPatientvisitArray;
+      output[prescription] = emrsPrescriptionArray;
+      output[slum] = emrsSlumArray;
+      output[triagerecord] = emrsTriagerecord;
+      output[user] = emrsUserArray;
+      callback(null, output);
+    }
+  });
 }
 
 function transformToPatient(emrsPatient, easymedClinic, easymedUser) {
