@@ -29,6 +29,9 @@
 </head>
 <body>
 
+<script src="emrsMySQL.js"></script>
+
+
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
@@ -44,8 +47,8 @@
             <input class="u-full-width" type="url" placeholder="e.g. 192.168.0.123" id="hostInput">
           </div>
           <div class="six columns">
-            <label for="portInput">Port</label>
-            <input class="u-full-width" type="number" placeholder="3306" id="portInput">
+            <label for="databaseInput">Database</label>
+            <input class="u-full-width" type="text" placeholder="SIGHT" id="databaseInput">
           </div>
         </div>
         <div class="row">
@@ -58,19 +61,13 @@
             <input class="u-full-width" type="password" id="passwordInput">
           </div>
         </div>
-        <div class="row">
-          <div class="six columns">
-            <label for="databaseInput">Database</label>
-            <input class="u-full-width" type="text" placeholder="SIGHT" id="databaseInput">
-          </div>
-        </div>
       </form>
       <div class="row">
         <div class="six columns">
-          <div style="text-align: center;"><a class="button" href="#">Test connection</a></div>
+          <div style="text-align: center;"><a class="button" onclick="testConnection()">Test connection</a></div>
         </div>
         <div class="six columns">
-          <div style="text-align: center;"><a class="button button-primary" href="#">Convert</a></div>
+          <div style="text-align: center;"><a class="button button-primary" onclick="#">Convert</a></div>
         </div>
       </div>
     </div>
@@ -90,6 +87,27 @@
   </div>
 
 </div>
+
+<script>
+  function testConnection() {
+    var host = document.getElementById('hostInput').value;
+    var username = document.getElementById('usernameInput').value;
+    var password = document.getElementById('passwordInput').value;
+    var database = document.getElementById('databaseInput').value;
+
+    testMySQLConnection(host, username, password, database, function (err, successful) {
+      if (err) {
+        showModalDialog(err);
+      } else {
+
+      }
+    });
+  },
+  function errorDialog(err) {
+    const {dialog} = require('electron').remote;
+    dialog.showErrorBox('Error', JSON.stringify(err));
+  }
+</script>
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
