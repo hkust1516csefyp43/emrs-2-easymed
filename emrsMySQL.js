@@ -16,17 +16,17 @@ function testMySQLConnection(host, username, password, database, callback) {
     password : password,
     database : database
   });
-  //
-  // connection.connect();
-  // //
-  // // connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-  // //   if (err) throw err;
-  // //
-  // //   console.log('The solution is: ', rows[0].solution);
-  // // });
-  //
-  // connection.end();
-  callback("failed");
+  connection.connect(function(err) {
+    if (err) {
+      console.error('error connecting: ' + err.stack);
+      callback(err, false);
+      return;
+    } else {
+      console.log('connected as id ' + connection.threadId);
+      callback(null, true);
+    }
+    connection.end();
+  });
 }
 
 // function getMySQLConnection(host, user, password, database, callback) {
@@ -214,6 +214,7 @@ function getEverythingFromEmrs(host, username, password, database, callback) {
           WFcallback2(null, output);
         }
       ], function (err, result) {
+        connection.end();
         if (err) {
           console.error(err);
           callback(err, null);

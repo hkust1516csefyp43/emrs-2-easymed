@@ -32,7 +32,20 @@
 <script src="emrsMySQL.js"></script>
 <script>
   //put functions here
+  function getAllInputs() {
+    var host = document.getElementById('hostInput').value;
+    var username = document.getElementById('usernameInput').value;
+    var password = document.getElementById('passwordInput').value;
+    var database = document.getElementById('databaseInput').value;
+    console.log(host + username + password + database);
+  }
   function testConnection() {
+    //find all values
+    //set error if some of them are empty
+//    call testMySQLConnection() with all params
+    getAllInputs();
+    const {dialog} = require('electron').remote;
+    dialog.showErrorBox('An Error Message', 'Demonstrating an error message.');
 
   }
 
