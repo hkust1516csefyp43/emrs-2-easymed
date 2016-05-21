@@ -9,13 +9,14 @@ var async = require('async');
 
 const id_length = 16;
 
-function testMySQLConnection(host, username, password, database, callback) {
+function testMySQLConnection(config, callback) {
   var connection = mysql.createConnection({
-    host     : host,
-    user     : username,
-    password : password,
-    database : database
+    host     : config.host,
+    user     : config.username,
+    password : config.password,
+    database : config.database
   });
+  
   connection.connect(function(err) {
     if (err) {
       console.error('error connecting: ' + err.stack);

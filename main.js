@@ -8,7 +8,7 @@ let mainWindow;
 
 function createWindow () {
   //TODO change accordingly http://electron.atom.io/docs/api/browser-window/
-  mainWindow = new BrowserWindow({width: 1000, height: 700});    // Create the browser window.
+  mainWindow = new BrowserWindow({width: 1200, height: 700});    // Create the browser window.
 
   mainWindow.loadURL('file://' + __dirname + '/index.html');    // and load the index.html of the app.
 
